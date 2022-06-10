@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 def gen_bestk(dir_path , contig_file):
     ##dir_path path of contig file
     fragURL = os.path.join('Auxiliary', 'FragGeneScan', 'FragGeneScan')
-    os.system("chmod 777" + fragURL)
+    os.system("chmod 777 " + fragURL)
     fragScanURL = os.path.join('Auxiliary', 'FragGeneScan', 'run_FragGeneScan.pl')
     os.system("chmod 777 " + fragScanURL)
     hmmExeURL = os.path.join('Auxiliary', 'hmmer-3.3.2', 'bin', 'hmmsearch')
