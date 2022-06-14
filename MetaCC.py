@@ -51,7 +51,7 @@ if __name__ == '__main__':
     global_parser.add_argument('--log', help='Log file path [OUTDIR/MetaCC.log]')
 
 
-    parser = argparse.ArgumentParser(description='An efficient normalization and binning method for both short reads and long reads')
+    parser = argparse.ArgumentParser(description='MetaCC: a scalable and integrative analysis framework for both short-read and long-read metagenomic Hi-C datasets')
 
     subparsers = parser.add_subparsers(title='commands', dest='command', description='Valid commands',
                                        help='choose an analysis stage for further options')
