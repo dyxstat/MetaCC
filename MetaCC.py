@@ -255,7 +255,7 @@ if __name__ == '__main__':
             logger.info('Writing bins...')
             gen_bins(args.FASTA , os.path.join(temp_folder , 'cluster.txt') , os.path.join(args.OUTDIR ,'BIN'))
             shutil.rmtree(temp_folder) ######Remove all intermediate files#######
-            logger.info('MagCC binning fininshed.')
+            logger.info('MetaCC binning fininshed.')
 
 
         if args.command == 'recluster':
