@@ -270,7 +270,7 @@ if __name__ == '__main__':
             post = Postprocess(args.OUTDIR , args.CHECKM , hzmap.name , hzmap.len , hzmap.seq_map, ifelse(args.min_binsize, runtime_defaults['min_binsize']))
             logger.info('Writing sub bins...')
             gen_sub_bins(args.FASTA , os.path.join(args.OUTDIR ,'tmp','cluster_sub.txt') , os.path.join(args.OUTDIR ,'tmp','SUB_BIN'))
-            lpgger.info('Merging bins and sub bins...')
+            logger.info('Merging bins and sub bins...')
             merge_bin(args.OUTDIR , args.CHECKM)
             logger.info('Post-processing finished.')
 
