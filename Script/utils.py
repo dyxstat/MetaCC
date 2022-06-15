@@ -228,7 +228,7 @@ def gen_sub_bins(fastafile,resultfile,outputdir):
             except:
                 dic[cluster_name]=[]
                 dic[cluster_name].append(contig_name)
-    print("Writing sub bins in \t{}".format(outputdir))
+
     if not os.path.exists(outputdir):
         os.makedirs(outputdir)
     
