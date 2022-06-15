@@ -228,9 +228,6 @@ class ContactMatrix:
         
         assert self.seq_map.shape[0] == len(self.seq_info), 'Filter error'
         
-        logger.info('Writing raw contact matrix...')
-        scisp.save_npz(os.path.join(self.path , 'raw_contact_matrix.npz'), self.seq_map.tocsr())
-        
         ########change the diaganol entries of Hi-C matrix to zero#######
         self.seq_map = self.seq_map.tolil()
         self.seq_map.setdiag(0)
@@ -521,10 +518,7 @@ class ContactMatrix_LC:
         del contig_id
         
         assert self.seq_map.shape[0] == len(self.seq_info), 'Filter error'
-        
-        logger.info('Writing raw contact matrix...')
-        scisp.save_npz(os.path.join(self.path , 'raw_contact_matrix.npz'), self.seq_map.tocsr())
-        
+       
         
         ########change the diaganol entries of Hi-C matrix to zero#######
         self.seq_map = self.seq_map.tolil()
