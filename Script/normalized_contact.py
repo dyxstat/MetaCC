@@ -87,7 +87,7 @@ class NormCCMap:
                 self.seq_map[x , y] = 0
                 self.seq_map[y , x] = 0
                 count += 1
-        logger.debug('{}% contacts have been removed'.format(round(100*count/len(_norm_contact))))
+        logger.debug('{}% contacts have been removed with the cutoff {}'.format(round(100*count/len(_norm_contact)) , cutoffs))
         logger.info('Spurious contact detection finished')
         
         del _map_row, _map_col, _map_data, _map_coor, _norm_contact, count
@@ -171,7 +171,7 @@ class NormCCMap_LC:
                 self.seq_map[x , y] = 0
                 self.seq_map[y , x] = 0
                 count += 1
-        logger.debug('{}% contacts have been removed'.format(round(100*count/len(_norm_contact))))
+        logger.debug('{}% contacts have been removed with the cutoff {}'.format(round(100*count/len(_norm_contact)) , cutoffs))
         logger.info('Spurious contact detection finished')
         
         del _map_row, _map_col, _map_data, _map_coor, _norm_contact, count
