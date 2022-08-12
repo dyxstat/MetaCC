@@ -5,7 +5,7 @@ from Script.predict_species_number import gen_bestk
 from Script.cluster import ClusterBin
 from Script.post_processing import Postprocess, merge_bin
 from Script.exceptions import ApplicationException
-from Script.utils import load_object, save_object, make_dir, gen_bins, gen_sub_bins
+from Script.utils import load_object, save_object, make_dir, gen_bins, gen_sub_bins, make_random_seed
 import scipy.sparse as scisp
 import argparse
 import warnings
@@ -97,6 +97,8 @@ if __name__ == '__main__':
                                help='Minimum bin size used in output [150000]')
     cmd_cl.add_argument('--num-gene', type=int,
                                help='Number of maker genes detected, automatically detected if not input')
+    cmd_cl.add_argument('-s', '--seed', default=None,
+                               help='Random seed')
     cmd_cl.add_argument('FASTA', help='Reference fasta sequence')
     cmd_cl.add_argument('OUTDIR', help='Output directory of sub bins')
     
@@ -250,8 +252,14 @@ if __name__ == '__main__':
                 
             logger.info('There are {} marker genes in the assembled contigs'.format(args.num_gene))
             
+            if not args.seed:
+                args.seed = make_random_seed()
+                logger.info('Generated random seed for clustering: {}'.format(args.seed))
+            else:
+                logger.info('User set random seed for clustering: {}'.format(args.seed))
+                
             cluster_process = ClusterBin(args.OUTDIR , hzmap.name , hzmap.len , hzmap.seq_map ,
-                                            ifelse(args.min_binsize, runtime_defaults['min_binsize']), args.num_gene)
+                                            ifelse(args.min_binsize, runtime_defaults['min_binsize']), args.num_gene, args.seed)
             logger.info('Writing bins...')
             gen_bins(args.FASTA , os.path.join(temp_folder , 'cluster.txt') , os.path.join(args.OUTDIR ,'BIN'))
             shutil.rmtree(temp_folder) ######Remove all intermediate files#######
@@ -272,6 +280,7 @@ if __name__ == '__main__':
             gen_sub_bins(args.FASTA , os.path.join(args.OUTDIR ,'tmp','cluster_sub.txt') , os.path.join(args.OUTDIR ,'tmp','SUB_BIN'))
             logger.info('Merging bins and sub bins...')
             merge_bin(args.OUTDIR , args.CHECKM)
+            shutil.rmtree(temp_folder) ######Remove all intermediate files#######
             logger.info('Post-processing finished.')
 
 
