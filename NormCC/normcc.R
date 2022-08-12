@@ -11,7 +11,7 @@ normcc = function(contig_info_file)
   colnames(contig_info) = c('contig_name' , 'site' , 'length' , 'covcc' , 'signal')
     
   data_sample = cbind(log(contig_info$site+1) , log(contig_info$length) , 
-                      log(contig_info$covcc) , contig_info$signal)
+                      log(contig_info$covcc+1) , contig_info$signal)
   data_sample = as.data.frame(data_sample)
   colnames(data_sample) = c('sample_site' , 'sample_len' , 'sample_covcc', 'sampleCon')
     
