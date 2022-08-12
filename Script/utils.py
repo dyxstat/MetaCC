@@ -253,3 +253,11 @@ def gen_sub_bins(fastafile,resultfile,outputdir):
                 f.write(contig_name+"\n")
                 f.write(sequence+"\n")
         bin_name+=1
+
+
+def make_random_seed():
+    """
+    Provide a random seed value between 1 and 1 million.
+    :return: integer random seed
+    """
+    return np.random.randint(1, 1000000)

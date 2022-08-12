@@ -380,12 +380,12 @@ class ContactMatrix:
         """
         _m = self.seq_map
         assert scisp.isspmatrix(_m), 'Input matrix is not a scipy.sparse object'
-        _m = _m.tolil(True);_diag = _m.tocsr().diagonal()
+        _m = _m.tolil(True)
         _m.setdiag(0)
         _sig = np.asarray(_m.tocsr().max(axis=0).todense()).ravel()
         _contig_id = []
         for i in range(_m.shape[0]):
-            if _sig[i] >= self.min_signal and _diag[i] > 0:
+            if _sig[i] >= self.min_signal:
                 _contig_id.append(i)
         del _m
         return _contig_id
@@ -672,12 +672,12 @@ class ContactMatrix_LC:
         """
         _m = self.seq_map
         assert scisp.isspmatrix(_m), 'Input matrix is not a scipy.sparse object'
-        _m = _m.tolil(True);_diag = _m.tocsr().diagonal()
+        _m = _m.tolil(True)
         _m.setdiag(0)
         _sig = np.asarray(_m.tocsr().max(axis=0).todense()).ravel()
         _contig_id = []
         for i in range(_m.shape[0]):
-            if _sig[i] >= self.min_signal and _diag[i] > 0:
+            if _sig[i] >= self.min_signal:
                 _contig_id.append(i)
         del _m
         return _contig_id

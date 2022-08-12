@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 
 
 class ClusterBin:
-    def __init__(self, path , contig_name , contig_len , seq_map  , min_binsize , num_gene):
+    def __init__(self, path , contig_name , contig_len , seq_map  , min_binsize , num_gene , random_seed):
         '''
         min_binsize: minimum bin size of output bins
         '''
@@ -48,7 +48,7 @@ class ClusterBin:
         #############determine the resolution parameter###########
         res_option = [1,20,40,60,80,100,120,140,160,180,200,220,240,260,280,300,320,340,360,380,400,420,440,460,480,500]
         for res in res_option:
-            part = leidenalg.find_partition(g , leidenalg.RBConfigurationVertexPartition , weights=_wei , resolution_parameter = res , n_iterations = -1)
+            part = leidenalg.find_partition(g , leidenalg.RBConfigurationVertexPartition , weights=_wei , resolution_parameter = res , n_iterations = -1 , seed = random_seed)
             part = list(part)
             numcom = 0
             for ci in range(len(part)):
