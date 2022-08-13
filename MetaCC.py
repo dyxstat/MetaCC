@@ -97,7 +97,7 @@ if __name__ == '__main__':
                                help='Minimum bin size used in output [150000]')
     cmd_cl.add_argument('--num-gene', type=int,
                                help='Number of maker genes detected, automatically detected if not input')
-    cmd_cl.add_argument('-s', '--seed', default=None,
+    cmd_cl.add_argument('--seed', type=int, default=None,
                                help='Random seed')
     cmd_cl.add_argument('FASTA', help='Reference fasta sequence')
     cmd_cl.add_argument('OUTDIR', help='Output directory of sub bins')
