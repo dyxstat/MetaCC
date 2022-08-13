@@ -79,7 +79,7 @@ if __name__ == '__main__':
                            help='Minimum acceptable mapping quality [30]')
     cmd_norm.add_argument('--min-match', type=int,
                            help='Accepted alignments must being N matches [30]')
-    cmd_norm.add_argument('-hic-len' , type=int,
+    cmd_norm.add_argument('--hic-len' , type=int,
                            help='Length of Hi-C reads, used as the scaling factor of CovCC abundances [100]')
     cmd_norm.add_argument('-e', '--enzyme', metavar='NEB_NAME', action='append',
                            help='Case-sensitive enzyme name. Use multiple times for multiple enzymes')
