@@ -24,6 +24,7 @@ class ClusterBin:
         self.binsize = min_binsize
         self.num_gene = num_gene
         self.dist_cluster={}
+        self.random_seed = random_seed
 
         logger.info('Run Leiden Algorithm')
         self.leiden()
@@ -48,7 +49,7 @@ class ClusterBin:
         #############determine the resolution parameter###########
         res_option = [1,20,40,60,80,100,120,140,160,180,200,220,240,260,280,300,320,340,360,380,400,420,440,460,480,500]
         for res in res_option:
-            part = leidenalg.find_partition(g , leidenalg.RBConfigurationVertexPartition , weights=_wei , resolution_parameter = res , n_iterations = -1 , seed = random_seed)
+            part = leidenalg.find_partition(g , leidenalg.RBConfigurationVertexPartition , weights=_wei , resolution_parameter = res , n_iterations = -1 , seed = self.random_seed)
             part = list(part)
             numcom = 0
             for ci in range(len(part)):
