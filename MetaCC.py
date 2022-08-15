@@ -242,7 +242,7 @@ if __name__ == '__main__':
             
         if args.command == 'cluster':
             if not os.path.exists(os.path.join(args.OUTDIR , 'NormCC_normalized_contact.gz')):
-                raise IOError('Please run the NormCC normalization step before MagCC binning')
+                raise IOError('Please run the NormCC normalization step before binning')
             
             ###########Load the normalization instance to get access to the normalized Hi-C contact maps##########
             logger.info('Loading normalized contact maps by NormCC from: {}'.format(os.path.join(args.OUTDIR , 'NormCC_normalized_contact.gz')))
