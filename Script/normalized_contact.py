@@ -61,7 +61,7 @@ class NormCCMap:
         mu_vector = []
         for contig_feature in zip(self.site, self.len, self.covcc):
             mu_vector.append(exp(coeff[0] + coeff[1]*log(contig_feature[0]+1)+ coeff[2]*log(contig_feature[1])+ coeff[3]*log(contig_feature[2]+1)))
-        scal = np.mean(mu_vector)
+        scal = np.max(mu_vector)
         _norm_contact = []
         
         for i in _map_coor:
@@ -145,7 +145,7 @@ class NormCCMap_LC:
         mu_vector = []
         for contig_feature in zip(self.len, self.covcc):
             mu_vector.append(exp(coeff[0] + coeff[1]*log(contig_feature[0])+ coeff[2]*log(contig_feature[1]+1)))
-        scal = np.mean(mu_vector)
+        scal = np.max(mu_vector)
         _norm_contact = []
         
         for i in _map_coor:
