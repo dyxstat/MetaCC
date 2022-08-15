@@ -281,9 +281,8 @@ if __name__ == '__main__':
             logger.info('Loading normalized contact map instance from: {}'.format(os.path.join(args.OUTDIR , 'NormCC_normalized_contact.gz')))
             hzmap = load_object(os.path.join(args.OUTDIR , 'NormCC_normalized_contact.gz'))
             post = Postprocess(args.OUTDIR , args.CHECKM , hzmap.name , hzmap.len , hzmap.seq_map, ifelse(args.min_binsize, runtime_defaults['min_binsize']))
-            logger.info('Writing sub bins...')
+            logger.info('Writing final bins...')
             gen_sub_bins(args.FASTA , os.path.join(args.OUTDIR ,'tmp','cluster_sub.txt') , os.path.join(args.OUTDIR ,'tmp','SUB_BIN'))
-            logger.info('Merging bins and sub bins...')
             merge_bin(args.OUTDIR , args.CHECKM)
             shutil.rmtree(temp_folder) ######Remove all intermediate files#######
             logger.info('Post-processing finished.')
