@@ -129,10 +129,15 @@ if __name__ == '__main__':
     except IOError:
         print('Error: cannot find out directory or the directory already exists')
         sys.exit(1)
-        
+    
+    # Create temp folder
     temp_folder = os.path.join(args.OUTDIR , 'tmp')
-    os.mkdir(temp_folder)
-        
+    if not os.path.exists(temp_folder):
+        os.mkdir(temp_folder)
+    else:
+        shutil.rmtree(temp_folder)           
+        os.mkdir(temp_folder)
+           
     logging.captureWarnings(True)
     logger = logging.getLogger('main')
 
