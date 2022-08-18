@@ -14,6 +14,7 @@ class NormCCMap:
         perc: threshold of spurious contacts
         '''
         self.path = path
+        self.seq_map_raw = seq_map
         self.seq_map = seq_map
         self.norm_result = norm_result
         self.thres = thres
@@ -101,6 +102,7 @@ class NormCCMap_LC:
         perc: threshold of spurious contacts
         '''
         self.path = path
+        self.seq_map_raw = seq_map
         self.seq_map = seq_map
         self.norm_result = norm_result
         self.thres = thres
