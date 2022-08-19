@@ -102,7 +102,7 @@ class Sparse2DAccumulator(object):
 
 class ContactMatrix:
 
-    def __init__(self, bam_file, enzymes, seq_file, path , min_mapq=30, min_len=1000, min_match=30, min_signal=2, hic_len=100):
+    def __init__(self, bam_file, enzymes, seq_file, path , min_mapq=30, min_len=1000, min_match=30, min_signal=2):
 
         ########input the parameter################
         ########################################################################
@@ -122,7 +122,6 @@ class ContactMatrix:
         self.min_len = min_len
         self.min_match = min_match
         self.min_signal = min_signal
-        self.hic_len = hic_len
         #fasta_info store the info from fasta file#
         #seq_info store the information of contigs from bam file#
         #cov_info store the information of coverage#
@@ -236,9 +235,6 @@ class ContactMatrix:
         self.seq_map = self.seq_map.tocsr()
         self.row_sum = np.matrix.tolist(self.seq_map.sum(axis=0))[0]
         self._write_contig_info()
-
-        #######Write the CovCC abundances########
-        self._write_covcc()
         
     def _bin_map(self, bam):
         """
@@ -362,11 +358,10 @@ class ContactMatrix:
                 out.write(str(seq.name)+ ',' +str(seq.sites)+ ',' +str(seq.length) + ',' +str(seq.covcc) + ',' + str(self.row_sum[i]))
                 out.write('\n')
                 
-    def _write_covcc(self):
-        with open(os.path.join(self.path , 'CovCC_abundances.csv'),'w') as out:
-            out.write(str('Contig name')+ ',' +  str('CovCC abundances') + ',' + str('Number of restriction sites')+ ',' +str('Contig length') + '\n')
+        with open(os.path.join(self.path , 'contig_info.csv'),'w') as out:
+            out.write(str('Contig name')+ ','  + str('Number of restriction sites')+ ',' +str('Contig length') + '\n')
             for seq in self.seq_info:
-                out.write(str(seq.name)+ ',' + str(2*self.hic_len*seq.covcc/seq.length) + ',' + str(seq.sites)+ ',' + str(seq.length))
+                out.write(str(seq.name)+ ',' + str(seq.sites)+ ',' + str(seq.length))
                 out.write('\n')
         
         
@@ -399,7 +394,7 @@ SeqInfo_LC = namedtuple('SeqInfo_LC', ['localid', 'refid', 'name', 'length', 'co
 ######NormCC without known restriction enzymes#########
 class ContactMatrix_LC:
 
-    def __init__(self, bam_file, seq_file, path , min_mapq=30, min_len=1000, min_match=30, min_signal=2, hic_len=100):
+    def __init__(self, bam_file, seq_file, path , min_mapq=30, min_len=1000, min_match=30, min_signal=2):
 
         ########input the parameter################
         ########################################################################
@@ -417,7 +412,6 @@ class ContactMatrix_LC:
         self.min_len = min_len
         self.min_match = min_match
         self.min_signal = min_signal
-        self.hic_len = hic_len
         #fasta_info store the info from fasta file#
         #seq_info store the information of contigs from bam file#
         #cov_info store the information of coverage#
@@ -530,9 +524,6 @@ class ContactMatrix_LC:
         self.row_sum = np.matrix.tolist(self.seq_map.sum(axis=0))[0]
         self._write_contig_info()
         
-        ########Write the contig feature and CovCC abundances#######
-        self._write_covcc()
-
 
     def _bin_map(self, bam):
         """
@@ -655,12 +646,11 @@ class ContactMatrix_LC:
             for i , seq in enumerate(self.seq_info):
                 out.write(str(seq.name)+ ',' +str(seq.length) + ',' +str(seq.covcc) + ',' + str(self.row_sum[i]))
                 out.write('\n')
-                
-    def _write_covcc(self):
-        with open(os.path.join(self.path , 'CovCC_abundances.csv'),'w') as out:
-            out.write(str('Contig name')+ ',' +  str('CovCC abundances') + ',' +str('Contig length') + '\n')
+
+        with open(os.path.join(self.path , 'contig_info.csv'),'w') as out:
+            out.write(str('Contig name')+ ',' +str('Contig length') + '\n')
             for seq in self.seq_info:
-                out.write(str(seq.name)+ ',' + str(2*self.hic_len*seq.covcc/seq.length) + ',' + str(seq.length))
+                out.write(str(seq.name) + ',' + str(seq.length))
                 out.write('\n')
         
     def max_offdiag(self):
