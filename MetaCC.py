@@ -39,7 +39,6 @@ if __name__ == '__main__':
         'min_signal': 2,
         'min_mapq': 30,
         'min_match': 30,
-        'hic_len':100,
         'thres': 0.05,
         'min_binsize':150000
     }
@@ -79,8 +78,6 @@ if __name__ == '__main__':
                            help='Minimum acceptable mapping quality [30]')
     cmd_norm.add_argument('--min-match', type=int,
                            help='Accepted alignments must being N matches [30]')
-    cmd_norm.add_argument('--hic-len' , type=int,
-                           help='Length of Hi-C reads, used as the scaling factor of CovCC abundances [100]')
     cmd_norm.add_argument('-e', '--enzyme', metavar='NEB_NAME', action='append',
                            help='Case-sensitive enzyme name. Use multiple times for multiple enzymes')
     cmd_norm.add_argument('--thres', type=float,
@@ -183,8 +180,7 @@ if __name__ == '__main__':
                                 min_mapq=ifelse(args.min_mapq, runtime_defaults['min_mapq']),
                                 min_len=ifelse(args.min_len, runtime_defaults['min_len']),
                                 min_match=ifelse(args.min_match, runtime_defaults['min_match']),
-                                min_signal=ifelse(args.min_signal, runtime_defaults['min_signal']),
-                                hic_len=ifelse(args.hic_len, runtime_defaults['hic_len']))
+                                min_signal=ifelse(args.min_signal, runtime_defaults['min_signal']))
 
                 logger.info('Raw contact matrix construction finished')
 
@@ -213,8 +209,7 @@ if __name__ == '__main__':
                                 min_mapq=ifelse(args.min_mapq, runtime_defaults['min_mapq']),
                                 min_len=ifelse(args.min_len, runtime_defaults['min_len']),
                                 min_match=ifelse(args.min_match, runtime_defaults['min_match']),
-                                min_signal=ifelse(args.min_signal, runtime_defaults['min_signal']),
-                                hic_len=ifelse(args.hic_len, runtime_defaults['hic_len']))
+                                min_signal=ifelse(args.min_signal, runtime_defaults['min_signal']))
                                 
                 logger.info('Raw contact matrix construction finished')
 
@@ -259,9 +254,8 @@ if __name__ == '__main__':
             
             if not args.seed:
                 args.seed = make_random_seed()
-                logger.info('Generated random seed for clustering: {}'.format(args.seed))
-            else:
-                logger.info('User set random seed for clustering: {}'.format(args.seed))
+                
+            logger.info('The random seed for clustering is {}'.format(args.seed))
                 
             cluster_process = ClusterBin(args.OUTDIR , hzmap.name , hzmap.len , hzmap.seq_map ,
                                             ifelse(args.min_binsize, runtime_defaults['min_binsize']), args.num_gene, args.seed)
