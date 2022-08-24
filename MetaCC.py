@@ -190,7 +190,7 @@ if __name__ == '__main__':
                 r = robjects.r
                 r.source('NormCC/normcc.R')
                 contig_file = os.path.join(temp_folder , 'contig_info.csv')
-                norm_result = r.normcc(contig_file);logger.info('Coefficient is {}'.format(norm_result))
+                norm_result = r.normcc(contig_file)
                 
                 ######Construct normalized matrix of Hi-C interaction maps#############
                 hzmap = NormCCMap(args.OUTDIR,
@@ -219,7 +219,7 @@ if __name__ == '__main__':
                 r = robjects.r
                 r.source('NormCC/normcc_site_free.R')
                 contig_file = os.path.join(temp_folder , 'contig_info.csv')
-                norm_result = r.normcc(contig_file);logger.info('Coefficient is {}'.format(norm_result))
+                norm_result = r.normcc(contig_file)
                 
                 ######Construct normalized matrix of Hi-C interaction maps#############
                 hzmap = NormCCMap_LC(args.OUTDIR,
