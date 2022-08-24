@@ -61,7 +61,7 @@ class NormCCMap:
         
         mu_vector = []
         for contig_feature in zip(self.site, self.len, self.covcc):
-            mu_vector.append(exp(coeff[0] + coeff[1]*log(contig_feature[0]+1)+ coeff[2]*log(contig_feature[1])+ coeff[3]*log(contig_feature[2])))
+            mu_vector.append(exp(coeff[0] + coeff[1]*log(contig_feature[0])+ coeff[2]*log(contig_feature[1])+ coeff[3]*log(contig_feature[2])))
         scal = np.max(mu_vector)
         _norm_contact = []
         
@@ -88,7 +88,7 @@ class NormCCMap:
                 self.seq_map[x , y] = 0
                 self.seq_map[y , x] = 0
                 count += 1
-        logger.debug('{}% contacts have been removed with the cutoff {}'.format(round(100*count/len(_norm_contact)) , cutoffs))
+        logger.debug('{}% contacts have been removed with the cutoff {}'.format(round(100*count/len(_norm_contact)) , round(cutoffs,2)))
         logger.info('Spurious contact detection finished')
         
         del _map_row, _map_col, _map_data, _map_coor, _norm_contact, count
@@ -173,7 +173,7 @@ class NormCCMap_LC:
                 self.seq_map[x , y] = 0
                 self.seq_map[y , x] = 0
                 count += 1
-        logger.debug('{}% contacts have been removed with the cutoff {}'.format(round(100*count/len(_norm_contact)) , cutoffs))
+        logger.debug('{}% contacts have been removed with the cutoff {}'.format(round(100*count/len(_norm_contact)) , round(cutoffs,2)))
         logger.info('Spurious contact detection finished')
         
         del _map_row, _map_col, _map_data, _map_coor, _norm_contact, count
