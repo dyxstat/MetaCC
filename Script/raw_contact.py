@@ -124,7 +124,6 @@ class ContactMatrix:
         self.min_signal = min_signal
         #fasta_info store the info from fasta file#
         #seq_info store the information of contigs from bam file#
-        #cov_info store the information of coverage#
         #seq_map store the contact map#
         self.fasta_info = {}
         self.seq_info = []
@@ -381,7 +380,7 @@ class ContactMatrix:
         _sig = np.asarray(_m.tocsr().max(axis=0).todense()).ravel()
         _contig_id = []
         for i in range(_m.shape[0]):
-            if _sig[i] >= self.min_signal and _diag[i]>0:
+            if _sig[i] >= self.min_signal and _diag[i]>0 and self.seq_info[i].sites>0:
                 _contig_id.append(i)
         del _m
         return _contig_id
