@@ -81,7 +81,7 @@ if __name__ == '__main__':
     cmd_norm.add_argument('-e', '--enzyme', metavar='NEB_NAME', action='append',
                            help='Case-sensitive enzyme name. Use multiple times for multiple enzymes')
     cmd_norm.add_argument('--thres', type=float,
-                           help='acceptable fraction of incorrectly identified valid contacts [0.05]')
+                           help='the fraction of discarded NormCC-normalized Hi-C contacts [0.05]')
     cmd_norm.add_argument('FASTA', help='Reference fasta sequence')
     cmd_norm.add_argument('BAM', help='Input bam file in query order')
     cmd_norm.add_argument('OUTDIR', help='Output directory')
