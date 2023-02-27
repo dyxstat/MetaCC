@@ -84,7 +84,7 @@ chmod +x Auxiliary/FragGeneScan/run_FragGeneScan.pl
 chmod +x Auxiliary/hmmer-3.3.2/bin/hmmsearch
 ```
 
-### Construct the python environment in the linux or MacOS system
+### Construct the conda environment in the linux or MacOS system
 ```
 conda env create -f metacc_linux_env.yaml
 ```
@@ -93,7 +93,7 @@ or
 conda env create -f metacc_osx_env.yaml
 ```
 
-### Enter the environment
+### Enter the conda environment
 ```
 conda activate MetaCC_env
 ```
