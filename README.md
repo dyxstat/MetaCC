@@ -47,7 +47,7 @@ leidenalg
 and R scientific package:
 
 ```
-glmmTMB
+MASS
 ```
 
 ### External Dependencies
@@ -100,18 +100,12 @@ conda activate MetaCC_env
 
 ### Install the R package
 
-The NormCC normalization method depends on R package '[glmmTMB](https://github.com/glmmTMB/glmmTMB)'. 
-Though the R package can be installed by 'conda install -c conda-forge r-glmmtmb', 
-you may meet one potential warning derived from the dependency version (https://github.com/glmmTMB/glmmTMB/issues/615)
-and we are not sure whether this warning would influence the noramlization results. 
-To get rid of this warning, we strongly recommend you to install the source version of package 'glmmTMB' directly in R:
-
 ```
 # Enter the R
 R
 
 # Download the R package and you may need to select a CRAN mirror for the installation
-install.packages("glmmTMB", type="source")
+install.packages('MASS')
 ```
 
 
