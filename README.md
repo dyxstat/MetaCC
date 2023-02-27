@@ -5,7 +5,7 @@
 - [Installation Guide](#installation-guide)
 - [A test dataset to demo MetaCC](#a-test-dataset-to-demo-metacc)
 - [Instruction to process raw data](#instruction-to-process-raw-data)
-- [Instruction to run MetaCC](#instruction-to-run-metacc)
+- [MetaCC analysis](#metacc-analysis)
 - [Instruction of reproducing results in MetaCC paper](https://github.com/dyxstat/Reproduce_MetaCC)
 - [Contacts and bug reports](#contacts-and-bug-reports)
 - [Copyright and License Information](#copyright-and-license-information)
@@ -111,30 +111,14 @@ install.packages('MASS')
 
 
 # A test dataset to demo MetaCC
-We provide a small simulated dataset, located under the Test directory, to demo and test the software:
+We provide a small dataset, located under the [Test](https://github.com/dyxstat/MetaCC/tree/main/Test) directory, to test the software:
 ```
-Test/final.contigs.fa
-Test/MAP_SORTED.bam
+python ./MetaCC.py test
 ```
-Run `MetaCC` on the testing dataset:
-```
-python ./viralcc.py pipeline -v Test/final.contigs.fa Test/MAP_SORTED.bam Test/viral_contigs.txt Test/out_test
-```
-
-The expected run time for demo is several seconds and the expected output are in the 'Test/out_test' directory:
-```
-Test/out_test/cluster_viral_contig.txt
-Test/out_test/prokaryotic_contig_info.csv
-Test/out_test/VIRAL_BIN/VIRAL_BIN0000.fa
-Test/out_test/VIRAL_BIN/VIRAL_BIN0001.fa
-Test/out_test/viralcc.log
-Test/out_test/viral_contig_info.csv
-```
-
 
 
 # Instruction to process raw data
-Follow the instructions in this section to process the raw shotgun and Hi-C data and generate the input for `ViralCC`:
+Follow the instructions in this section to process the raw shotgun and Hi-C data and generate the input for the `MetaCC` framework:
 
 ### Clean raw shotgun and Hi-C reads
 
@@ -156,47 +140,71 @@ bwa mem -5SP final.contigs.fa hic_read1.fastq.gz hic_read2.fastq.gz > MAP.sam
 samtools view -F 0x904 -bS MAP.sam > MAP_UNSORTED.bam
 samtools sort -n MAP_UNSORTED.bam -o MAP_SORTED.bam
 ```
-### Identify viral contigs from assembled contigs
-
-Assembled contigs were screened by a viral sequence detection software, such as VirSorter to identify viral contigs.
-```
-wrapper_phage_contigs_sorter_iPlant.pl -f final.contigs.fa --db 1 --wdir virsorter_output --data-dir virsorter-data
-```
 
 
-# Instruction to run ViralCC
+# MetaCC analysis
+## Implement the NormCC normalization module
 ```
-python ./viralcc.py pipeline [Parameters] FASTA_file BAM_file VIRAL_file OUTPUT_directory
+python ./MetaCC.py norm [Parameters] FASTA_file BAM_file OUTPUT_directory
 ```
 ### Parameters
 ```
+-e (required): Case-sensitive enzyme name. Use multiple times for multiple enzymes 
 --min-len: Minimum acceptable contig length (default 1000)
 --min-mapq: Minimum acceptable alignment quality (default 30)
 --min-match: Accepted alignments must be at least N matches (default 30)
---min-k: Lower bound of k for determining the host poximity graph (default 4)
---random-seed: Random seed for the Leiden clustering (default 42)
+--min-signal: Minimum acceptable signal (default 2)
+--thres: the fraction of discarded normalized Hi-C contacts 
+         (default 0.05, which means discarding the lowest 5% of normalized Hi-C contacts as spurious)
 --cover (optional): Cover existing files. Otherwise, an error will be returned if the output file is detected to exist.
--v (optional): Verbose output about more specific details of the ViralCC procedure.
+-v (optional): Verbose output about more specific details of the procedure.
 ```
 ### Input File
 
-* FASTA_file: a fasta file of the assembled contig (e.g. Test/final.contigs.fa)
-* BAM_file: a bam file of the Hi-C alignment (e.g. Test/MAP_SORTED.bam)
-* VIRAL_file: a txt file containing the names of identified viral contigs in one column **without header** (e.g. Test/viral_contigs.txt)
+* **FASTA_file**: a fasta file of the assembled contig (e.g. Test/final.contigs.fa)
+* **BAM_file**: a bam file of the Hi-C alignment (e.g. Test/MAP_SORTED.bam)
 
 
 ### Output File
 
-* VIRAL_BIN: folder containing the fasta files of draft viral bins
-* cluster_viral_contig.txt: clustering results with 2 columns, the first is the viral contig name, and the second is the group number.
-* viral_contig_info.csv: information of viral contigs with three columns (contig name, contig length, and GC-content)
-* prokaryotic_contig_info.csv: information of non-viral contigs with three columns (contig name, contig length, and GC-content)
-* viralcc.log: log file of ViralCC
+* **contig_info.csv**: information of assembled contigs with three columns (contig name, the number of restriction sites on contigs, and contig length)
+* **Normalized_contact_matrix.npz**: a sparse matrix of normalized Hi-C contact maps in csr format and can be reloaded using  **scipy.sparse.load_npz('Normalized_contact_matrix.npz')**
+* **NormCC_normalized_contact.gz**: Compressed format of the normalized contacts and contig information by pickle. 
+This file can further serve as the input of MetaCC binning module.
+* **MetaCC.log**: the specific implementation information of NormCC normalization module
+
 
 ### Example
 ```
-python ./viralcc.py pipeline -v final.contigs.fa MAP_SORTED.bam viral_contigs.txt out_directory
+python ./MetaCC.py norm -v final.contigs.fa MAP_SORTED.bam out_directory
 ```
+
+
+## Implement the MetaCC binning module
+**MetaCC binning module is based on the NormCC-normalized Hi-C contacts and thus must be implemented after the NormCC normalization module.**
+```
+python ./MetaCC.py cluster [Parameters] FASTA_file OUTPUT_directory
+```
+### Parameters
+```
+--min-binsize: Minimum bin size used in output (default 150000)
+--num-gene (optional): Number of marker genes detected. If there is no input, the number of marker genes will be automatically detected.
+--random-seed (optional): seed for the Leiden clustering. If there is no input, a random seed will be employed.
+--cover (optional): Cover existing files. Otherwise, an error will be returned if the output file is detected to exist.
+-v (optional): Verbose output about more specific details of the procedure.
+```
+### Input File
+
+* **FASTA_file**: a fasta file of the assembled contig (e.g. Test/final.contigs.fa)
+* **OUTPUT_directory**: please pay attention that the output directory of the MetaCC binning module should be the same as that of the NormCC normalization module.
+
+### Output File
+
+* **BIN**: folder containing the fasta files of initial draft genomic bins
+* **MetaCC.log**: the specific implementation information of NormCC normalization module
+
+
+
 
 # Contacts and bug reports
 If you have any questions or suggestions, welcome to contact Yuxuan Du (yuxuandu@usc.edu).
