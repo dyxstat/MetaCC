@@ -1,40 +1,38 @@
 # MetaCC allows scalable and integrative analyses of both long-read and short-read metagenomic Hi-C data
 
-chmod +x Auxiliary/FragGeneScan/FragGeneScan
-
 - [Overview](#overview)
 - [System Requirements](#system-requirements)
 - [Installation Guide](#installation-guide)
-- [A test dataset to demo ViralCC](#a-test-dataset-to-demo-viralcc)
+- [A test dataset to demo MetaCC](#a-test-dataset-to-demo-metacc)
 - [Instruction to process raw data](#instruction-to-process-raw-data)
-- [Instruction to run ViralCC](#instruction-to-run-viralcc)
-- [Instruction of reproducing results in ViralCC paper](https://github.com/dyxstat/Reproduce_ViralCC)
+- [Instruction to run MetaCC](#instruction-to-run-metacc)
+- [Instruction of reproducing results in MetaCC paper](https://github.com/dyxstat/Reproduce_MetaCC)
 - [Contacts and bug reports](#contacts-and-bug-reports)
 - [Copyright and License Information](#copyright-and-license-information)
-- [Issues](https://github.com/dyxstat/ViralCC/issues)
+- [Issues](https://github.com/dyxstat/MetaCC/issues)
 
 # Overview
-`ViralCC` is a new open-source metagenomic Hi-C-based binning pipeline to recover high-quality viral genomes. 
-`ViralCC` not only considers the Hi-C interaction graph, but also puts forward a novel host proximity graph of viral contigs 
-as a complementary source of information to the remarkably sparse Hi-C interaction map. The two graphs are then integrated together, 
-followed by the Leiden graph clustering using the integrative graph to generate draft viral genomes.
+`MetaCC` is an efficient and integrative framework for analyzing both long-read and short-read metaHi-C datasets.
+In the `MetaCC` framework, raw metagenomic Hi-C contacts are first efficiently and effectively normalized 
+by a new normalization method, `NormCC`. Leveraging NormCC-normalized Hi-C contacts, 
+the binning module in `MetaCC` enables the retrieval of high-quality MAGs and downstream analyses.
 
-* **If you want to reproduce results in our ViralCC paper, please read our instructions [here](https://github.com/dyxstat/Reproduce_ViralCC).**
 
-* **Source data of Figure 2 and 3 in the main text of our ViralCC paper and Figure S1 in the supplementary materials are provided [here](https://github.com/dyxstat/Reproduce_ViralCC/tree/main/Source%20Data).**
+* **If you want to reproduce results in our MetaCC paper, please read our instructions [here](https://github.com/dyxstat/Reproduce_MetaCC).**
 
-* **Scripts to process the intermediate data and plot figures of our ViralCC paper are available [here](https://github.com/dyxstat/Reproduce_ViralCC/tree/main/Scripts).**
+* **Scripts to process the intermediate data and plot figures of our MetaCC paper are available [here](https://github.com/dyxstat/Reproduce_MetaCC/tree/main/Scripts).**
+
 
 # System Requirements
 ## Hardware requirements
-`ViralCC` requires only a standard computer with enough RAM to support the in-memory operations.
+`MetaCC` requires only a standard computer with enough RAM to support the in-memory operations.
 
 ## Software requirements
 ### OS Requirements
-`ViralCC` v1.0.0 is supported and tested in *MacOS* and *Linux* systems.
+`MetaCC` v1.0.0 is supported and tested in *MacOS* and *Linux* systems.
 
-### Python Dependencies
-`ViralCC` mainly depends on the Python scientific stack.
+### Python and R Dependencies
+`MetaCC` mainly depends on the Python scientific stack
 
 ```
 numpy
@@ -43,49 +41,88 @@ pysam
 scikit-learn
 pandas
 Biopython
+igraph
 leidenalg
+```
+and R scientific package
+
+```
+glmmTMB
+```
+
+### External Dependencies
+```
+FragGeneScan
+
+hmmer
 ```
 
 
 # Installation Guide
-We recommend using [**conda**](https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html) to install `ViralCC`. 
+We recommend using [**conda**](https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html) to install `MetaCC`. 
 Typical installation time is 1-5 minutes depending on your system.
 
-### Clone the repository with git:
+### Clone the repository with git
 ```
-git clone https://github.com/dyxstat/ViralCC.git
-```
-
-Once complete, enter the repository folder and then create a `ViralCC` environment using conda.
-
-
-### Enter the ViralCC folder:
-```
-cd ViralCC
+git clone https://github.com/dyxstat/MetaCC.git
 ```
 
-### Construct environment in the linux or MacOS system:
+Once complete, enter the repository folder and then create a `MetaCC` environment using conda.
+
+
+### Enter the MetaCC folder
 ```
-conda env create -f viralcc_linux_env.yaml
+cd MetaCC
+```
+
+### Add dependencies of external softwares
+Since MetaCC needs to execute the external softwares in the folder [Auxiliary](https://github.com/dyxstat/MetaCC/tree/main/Auxiliary), you can run the following commands to make sure that all external softwares are executable:
+```
+chmod +x Auxiliary/test_getmarker.pl
+chmod +x Auxiliary/FragGeneScan/FragGeneScan
+chmod +x Auxiliary/FragGeneScan/run_FragGeneScan.pl
+chmod +x Auxiliary/hmmer-3.3.2/bin/hmmsearch
+```
+
+### Construct the python environment in the linux or MacOS system
+```
+conda env create -f metacc_linux_env.yaml
 ```
 or
 ```
-conda env create -f viralcc_osx_env.yaml
+conda env create -f metacc_osx_env.yaml
 ```
 
-### Enter the environment:
+### Enter the environment
 ```
-conda activate ViralCC_env
+conda activate MetaCC_env
 ```
 
-# A test dataset to demo ViralCC
+### Install the R package
+
+The NormCC normalization method depends on R package '[glmmTMB](https://github.com/glmmTMB/glmmTMB)'. 
+Though the R package can be installed by 'conda install -c conda-forge r-glmmtmb', 
+you may meet one potential warning derived from the dependency version (https://github.com/glmmTMB/glmmTMB/issues/615)
+and we are not sure whether this warning would influence the noramlization results. 
+To get rid of this warning, we strongly recommend you to install the source version of package 'glmmTMB' directly in R:
+
+```
+# Enter the R
+R
+
+# Download the R package and you may need to select a CRAN mirror for the installation
+install.packages("glmmTMB", type="source")
+```
+
+
+
+# A test dataset to demo MetaCC
 We provide a small simulated dataset, located under the Test directory, to demo and test the software:
 ```
 Test/final.contigs.fa
 Test/MAP_SORTED.bam
-Test/viral_contigs.txt
 ```
-Run `ViralCC` on the testing dataset:
+Run `MetaCC` on the testing dataset:
 ```
 python ./viralcc.py pipeline -v Test/final.contigs.fa Test/MAP_SORTED.bam Test/viral_contigs.txt Test/out_test
 ```
