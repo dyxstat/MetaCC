@@ -86,11 +86,11 @@ chmod +x Auxiliary/hmmer-3.3.2/bin/hmmsearch
 
 ### Construct the conda environment in the linux or MacOS system
 ```
-conda env create -f metacc_linux_env.yaml
+conda env create -f MetaCC_linux_env.yaml
 ```
 or
 ```
-conda env create -f metacc_osx_env.yaml
+conda env create -f MetaCC_osx_env.yaml
 ```
 
 ### Enter the conda environment
