@@ -32,7 +32,7 @@ the binning module in `MetaCC` enables the retrieval of high-quality MAGs and do
 `MetaCC` v1.0.0 is supported and tested in *MacOS* and *Linux* systems.
 
 ### Python and R Dependencies
-`MetaCC` mainly depends on the Python scientific stack
+`MetaCC` mainly depends on the Python scientific stack:
 
 ```
 numpy
@@ -44,7 +44,7 @@ Biopython
 igraph
 leidenalg
 ```
-and R scientific package
+and R scientific package:
 
 ```
 glmmTMB
