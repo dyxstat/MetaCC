@@ -50,12 +50,6 @@ and R scientific package:
 MASS
 ```
 
-### External Dependencies
-```
-FragGeneScan
-
-hmmer
-```
 
 
 # Installation Guide
