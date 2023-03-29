@@ -211,11 +211,11 @@ Then the post-processing step of the MetaCC binning module is conducted for part
 python ./MetaCC.py recluster --cover -v FASTA_file Contaminated_Bins_file OUTPUT_directory
 ```
 
-#### Input File
+### Input File
 * **FASTA_file**: a fasta file of the assembled contig (e.g. Test/final.contigs.fa).
 * **Contaminated_Bins_file**: a csv file of the names of the partially contaminated bins; Bin names are arranged in columns and *don't include the file formats .fa at the end of each name*
 * **OUTPUT_directory**: please pay attention that the output directory of the post-processing step of the MetaCC binning module should be the same as the previous steps.
-* 
+
 Example of a Contaminated_Bins_file:
 ```
 BIN0001
@@ -230,7 +230,7 @@ BIN0005
 * **MetaCC.log**: the specific implementation information of the post-processing step of the MetaCC binning module.
 
 
-#### Example
+### Example
 ```
 python ./MetaCC.py recluster --cover -v final.contigs.fa contaminated_bins.csv out_directory
 ```
