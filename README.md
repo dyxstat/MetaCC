@@ -213,7 +213,7 @@ python ./MetaCC.py recluster --cover -v FASTA_file Contaminated_Bins_file OUTPUT
 
 ### Input File
 * **FASTA_file**: a fasta file of the assembled contig (e.g. Test/final.contigs.fa).
-* **Contaminated_Bins_file**: a csv file of the names of the partially contaminated bins; Bin names are arranged in columns and *don't include the file formats .fa at the end of each name*
+* **Contaminated_Bins_file**: a csv file of the names of the partially contaminated bins; Bin names are arranged in columns and don't include the file formats .fa at the end of each name.
 * **OUTPUT_directory**: please pay attention that the output directory of the post-processing step of the MetaCC binning module should be the same as the previous steps.
 
 Example of a Contaminated_Bins_file:
