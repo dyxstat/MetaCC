@@ -18,7 +18,7 @@ import os
 ##Ignore the warning information of package deprecation##
 warnings.filterwarnings("ignore")
 
-__version__ = '1.1.0, released at 04/2022'
+__version__ = '1.0.0, released at 03/2023'
 
 if __name__ == '__main__':
     
