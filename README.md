@@ -70,7 +70,8 @@ cd MetaCC
 ```
 
 ### Add dependencies of external softwares
-Since MetaCC needs to execute the external softwares in the folder [Auxiliary](https://github.com/dyxstat/MetaCC/tree/main/Auxiliary), you can run the following commands to make sure that all external softwares are executable:
+Since MetaCC needs to execute the external softwares in the folder [Auxiliary](https://github.com/dyxstat/MetaCC/tree/main/Auxiliary), 
+you may need to run the following commands to make sure that all external softwares are executable:
 ```
 chmod +x Auxiliary/test_getmarker.pl
 chmod +x Auxiliary/FragGeneScan/FragGeneScan
@@ -80,28 +81,13 @@ chmod +x Auxiliary/hmmer-3.3.2/bin/hmmsearch
 
 ### Construct the conda environment in the linux or MacOS system
 ```
-conda env create -f MetaCC_linux_env.yaml
-```
-or
-```
-conda env create -f MetaCC_osx_env.yaml
+conda env create -f MetaCC_env.yaml
 ```
 
 ### Enter the conda environment
 ```
 conda activate MetaCC_env
 ```
-
-### Install the R package
-
-```
-# Enter the R
-R
-
-# Download the R package and you may need to select a CRAN mirror for the installation
-install.packages('MASS')
-```
-
 
 
 # A test dataset to demo MetaCC
