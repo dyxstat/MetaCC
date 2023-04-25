@@ -156,7 +156,7 @@ This file can further serve as the input of MetaCC binning module.
 
 ### Example
 ```
-python ./MetaCC.py norm -v final.contigs.fa MAP_SORTED.bam out_directory
+python ./MetaCC.py norm -e HindIII -e NcoI -v final.contigs.fa MAP_SORTED.bam out_directory
 ```
 
 
