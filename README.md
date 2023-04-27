@@ -167,7 +167,7 @@ python ./MetaCC.py bin --cover [Parameters] FASTA_file OUTPUT_directory
 ```
 ### Parameters
 ```
---min-binsize: Minimum bin size used in output (default 150000)
+--min-binsize: Minimum bin size used in output (default 150,000)
 --num-gene (optional): Number of marker genes detected. If there is no input, 
                        the number of marker genes will be automatically detected.
 --random-seed (optional): seed for the Leiden clustering. If there is no input, a random seed will be employed.
