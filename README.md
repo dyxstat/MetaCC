@@ -163,7 +163,7 @@ python ./MetaCC.py norm -e HindIII -e NcoI -v final.contigs.fa MAP_SORTED.bam ou
 ## Implement the MetaCC binning module
 **MetaCC binning module is based on the NormCC-normalized Hi-C contacts and thus must be implemented after the NormCC normalization module.**
 ```
-python ./MetaCC.py cluster --cover [Parameters] FASTA_file OUTPUT_directory
+python ./MetaCC.py bin --cover [Parameters] FASTA_file OUTPUT_directory
 ```
 ### Parameters
 ```
@@ -176,7 +176,7 @@ python ./MetaCC.py cluster --cover [Parameters] FASTA_file OUTPUT_directory
 ### Input File
 
 * **FASTA_file**: a fasta file of the assembled contigs (e.g. Test/final.contigs.fa)
-* **OUTPUT_directory**: please pay attention that the output directory of the MetaCC binning module should be the same as that of the NormCC normalization module.
+* **OUTPUT_directory**: please make sure that the output directory of the MetaCC binning module should be the same as that of the NormCC normalization module.
 
 ### Output File
 
@@ -186,7 +186,7 @@ python ./MetaCC.py cluster --cover [Parameters] FASTA_file OUTPUT_directory
 
 ### Example
 ```
-python ./MetaCC.py cluster --cover -v final.contigs.fa out_directory
+python ./MetaCC.py bin --cover -v final.contigs.fa out_directory
 ```
 
 
@@ -194,13 +194,13 @@ python ./MetaCC.py cluster --cover -v final.contigs.fa out_directory
 Initial draft genomic bins are assessed using [CheckM](https://github.com/Ecogenomics/CheckM).
 Then the post-processing step of the MetaCC binning module is conducted for partially contaminated bins with completeness larger than 50% and contamination larger than 10% in order to purify the contaminated bins. Please make sure that the OUTPUT_directory is the same as your directory in the pipeline action.
 ```
-python ./MetaCC.py recluster --cover -v FASTA_file Contaminated_Bins_file OUTPUT_directory
+python ./MetaCC.py postprocess --cover -v FASTA_file Contaminated_Bins_file OUTPUT_directory
 ```
 
 ### Input File
 * **FASTA_file**: a fasta file of the assembled contigs (e.g. Test/final.contigs.fa).
 * **Contaminated_Bins_file**: a csv file of the names of the partially contaminated bins; Bin names are arranged in columns and don't include the file formats .fa at the end of each name.
-* **OUTPUT_directory**: please pay attention that the output directory of the post-processing step of the MetaCC binning module should be the same as the previous steps.
+* **OUTPUT_directory**: please make sure that the output directory of the post-processing step of the MetaCC binning module should be the same as the previous steps.
 
 Example of a Contaminated_Bins_file:
 ```
@@ -218,7 +218,7 @@ BIN0005
 
 ### Example
 ```
-python ./MetaCC.py recluster --cover -v final.contigs.fa contaminated_bins.csv out_directory
+python ./MetaCC.py postprocess --cover -v final.contigs.fa contaminated_bins.csv out_directory
 ```
 
 
