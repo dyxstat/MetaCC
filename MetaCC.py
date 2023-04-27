@@ -58,10 +58,10 @@ if __name__ == '__main__':
     cmd_norm = subparsers.add_parser('norm', parents=[global_parser],
                                       description='Normalize contacts.')
                                       
-    cmd_cl = subparsers.add_parser('cluster', parents=[global_parser],
+    cmd_cl = subparsers.add_parser('bin', parents=[global_parser],
                                       description='Do the binning.')
                                       
-    cmd_pp = subparsers.add_parser('recluster', parents=[global_parser],
+    cmd_pp = subparsers.add_parser('postprocess', parents=[global_parser],
                                       description='post-processing step on partially containminated bins.')
 
     cmd_test = subparsers.add_parser('test', parents=[global_parser],
@@ -235,7 +235,7 @@ if __name__ == '__main__':
             save_object(os.path.join(args.OUTDIR, 'NormCC_normalized_contact'), hzmap)
             logger.info('Normalization results have been saved')
             
-        if args.command == 'cluster':
+        if args.command == 'bin':
             if not os.path.exists(os.path.join(args.OUTDIR , 'NormCC_normalized_contact.gz')):
                 raise IOError('Please run the NormCC normalization step before binning')
             
@@ -265,7 +265,7 @@ if __name__ == '__main__':
             logger.info('MetaCC binning fininshed.')
 
 
-        if args.command == 'recluster':
+        if args.command == 'postprocess':
             if not os.path.exists(os.path.join(args.OUTDIR , 'NormCC_normalized_contact.gz')):
                 logger.error('File NormCC_normalized_contact.gz is not found')
                 raise IOError('Please run the NormCC normalization step before postprocessing the contaminated bins')
@@ -326,7 +326,7 @@ if __name__ == '__main__':
                                             
             logger.info('MetaCC binning module works!')
             
-            shutil.rmtree(OUT)
+            shutil.rmtree(OUT, ignore_errors=True)
             logger.info('Testing finished!')
 
 
