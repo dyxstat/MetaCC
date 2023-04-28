@@ -177,7 +177,7 @@ python ./MetaCC.py bin --cover [Parameters] FASTA_file OUTPUT_directory
 
 ### Output File
 
-* **BIN**: folder containing the fasta files of initial draft genomic bins
+* **BIN**: folder containing the fasta files of draft genomic bins
 * **MetaCC.log**: the specific implementation information of MetaCC binning module
 
 
@@ -188,8 +188,8 @@ python ./MetaCC.py bin --cover -v final.contigs.fa out_directory
 
 
 ## Implement the post-processing step of the MetaCC binning module
-Initial draft genomic bins are assessed using [CheckM](https://github.com/Ecogenomics/CheckM).
-Then the post-processing step of the MetaCC binning module is conducted for partially contaminated bins with completeness larger than 50% and contamination larger than 10% in order to purify the contaminated bins. 
+Draft genomic bins are assessed using [CheckM](https://github.com/Ecogenomics/CheckM).
+Then the post-processing step of the MetaCC binning module is conducted for partially contaminated bins with CheckM completeness larger than 50% and contamination larger than 10% in order to purify the partially contaminated bins. 
 ```
 python ./MetaCC.py postprocess --cover -v FASTA_file Contaminated_Bins_file OUTPUT_directory
 ```
