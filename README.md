@@ -73,10 +73,7 @@ cd MetaCC
 Since MetaCC needs to execute the external softwares in the folder [Auxiliary](https://github.com/dyxstat/MetaCC/tree/main/Auxiliary), 
 you may need to run the following commands to make sure that all external softwares are executable:
 ```
-chmod +x Auxiliary/test_getmarker.pl
-chmod +x Auxiliary/FragGeneScan/FragGeneScan
-chmod +x Auxiliary/FragGeneScan/run_FragGeneScan.pl
-chmod +x Auxiliary/hmmer-3.3.2/bin/hmmsearch
+chmod +x Auxiliary/test_getmarker.pl Auxiliary/FragGeneScan/FragGeneScan Auxiliary/FragGeneScan/run_FragGeneScan.pl Auxiliary/hmmer-3.3.2/bin/hmmsearch
 ```
 
 ### Construct the conda environment in the linux or MacOS system
