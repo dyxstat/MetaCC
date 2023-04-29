@@ -121,6 +121,8 @@ samtools sort -n MAP_UNSORTED.bam -o MAP_SORTED.bam
 
 # MetaCC analysis
 ## Implement the NormCC normalization module
+Since the raw metagenomic Hi-C contacts are biased, MetaCC pipeline provides a comprehensive and scalable normalization module **NormCC** to eliminate
+the systematic biases of Hi-C contacts, which can significantly benefit the downstream analysis.
 ```
 python ./MetaCC.py norm [Parameters] FASTA_file BAM_file OUTPUT_directory
 ```
