@@ -20,7 +20,7 @@ the binning module in `MetaCC` enables the retrieval of high-quality MAGs and do
 
 * **If you want to reproduce results in our MetaCC paper, please read our instructions [here](https://github.com/dyxstat/Reproduce_MetaCC).**
 
-* **Scripts to process the intermediate data and plot figures of our MetaCC paper are available [here](https://github.com/dyxstat/Reproduce_MetaCC/tree/main/Scripts).**
+* **Some scripts to process the intermediate data and plot figures of our MetaCC paper are available [here](https://github.com/dyxstat/Reproduce_MetaCC/tree/main/Scripts).**
 
 
 # System Requirements
