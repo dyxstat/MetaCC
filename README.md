@@ -193,7 +193,12 @@ python ./MetaCC.py bin --cover -v final.contigs.fa out_directory
 Draft genomic bins are assessed using [CheckM](https://github.com/Ecogenomics/CheckM).
 Then the post-processing step of the MetaCC binning module is conducted for partially contaminated bins with CheckM completeness larger than 50% and contamination larger than 10% in order to purify the partially contaminated bins. 
 ```
-python ./MetaCC.py postprocess --cover -v FASTA_file Contaminated_Bins_file OUTPUT_directory
+python ./MetaCC.py postprocess --cover [Parameters] FASTA_file Contaminated_Bins_file OUTPUT_directory
+```
+
+### Parameters
+```
+-v (optional): Verbose output about more specific details of the procedure.
 ```
 
 ### Input File
