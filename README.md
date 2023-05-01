@@ -198,6 +198,7 @@ python ./MetaCC.py postprocess --cover [Parameters] FASTA_file Contaminated_Bins
 
 ### Parameters
 ```
+--min-binsize: Minimum bin size used in output (default 150,000)
 -v (optional): Verbose output about more specific details of the procedure.
 ```
 
