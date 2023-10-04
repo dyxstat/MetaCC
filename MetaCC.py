@@ -43,6 +43,8 @@ if __name__ == '__main__':
         'min_binsize':150000
     }
 
+    script_directory = os.path.dirname(os.path.abspath(sys.argv[0]))
+
     global_parser = argparse.ArgumentParser(add_help=False)
     global_parser.add_argument('-V', '--version', default=False, action='store_true', help='Show the application version')
     global_parser.add_argument('-v', '--verbose', default=False, action='store_true', help='Verbose output')
@@ -188,7 +190,7 @@ if __name__ == '__main__':
                 
                 from rpy2 import robjects
                 r = robjects.r
-                r.source('NormCC/normcc.R')
+                r.source(f'{script_directory}/NormCC/normcc.R')
                 contig_file = os.path.join(temp_folder , 'contig_info.csv')
                 norm_result = r.normcc(contig_file)
                 
@@ -217,7 +219,7 @@ if __name__ == '__main__':
                 
                 from rpy2 import robjects
                 r = robjects.r
-                r.source('NormCC/normcc_site_free.R')
+                r.source(f'{script_directory}/NormCC/normcc.R')
                 contig_file = os.path.join(temp_folder , 'contig_info.csv')
                 norm_result = r.normcc(contig_file)
                 
@@ -304,7 +306,7 @@ if __name__ == '__main__':
             
             from rpy2 import robjects
             r = robjects.r
-            r.source('NormCC/normcc.R')
+            r.source(f'{script_directory}/NormCC/normcc.R')
             contig_file = 'Test/contig_info_test.csv'
             norm_result = r.normcc(contig_file)
             
