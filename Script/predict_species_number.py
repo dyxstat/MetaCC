@@ -5,19 +5,20 @@ import logging
 # package logger
 logger = logging.getLogger(__name__)
 
+script_directory = os.path.dirname(os.path.abspath(sys.argv[0]))
 
 #######This function is used to scan the number of marker genes from assembled contigs#######
 def gen_bestk(dir_path , contig_file):
     ##dir_path path of contig file
-    fragURL = os.path.join('Auxiliary', 'FragGeneScan', 'FragGeneScan')
+    fragURL = os.path.join(f'{script_directory}','Auxiliary', 'FragGeneScan', 'FragGeneScan')
     os.system("chmod 777 " + fragURL)
-    fragScanURL = os.path.join('Auxiliary', 'FragGeneScan', 'run_FragGeneScan.pl')
+    fragScanURL = os.path.join(f'{script_directory}','Auxiliary', 'FragGeneScan', 'run_FragGeneScan.pl')
     os.system("chmod 777 " + fragScanURL)
-    hmmExeURL = os.path.join('Auxiliary', 'hmmer-3.3.2', 'bin', 'hmmsearch')
+    hmmExeURL = os.path.join(f'{script_directory}','Auxiliary', 'hmmer-3.3.2', 'bin', 'hmmsearch')
     os.system("chmod 777 " + hmmExeURL)
-    markerExeURL = os.path.join('Auxiliary' , 'test_getmarker.pl')
+    markerExeURL = os.path.join(f'{script_directory}','Auxiliary' , 'test_getmarker.pl')
     os.system("chmod 777 " + markerExeURL)
-    markerURL = os.path.join('Auxiliary' , 'marker.hmm')
+    markerURL = os.path.join(f'{script_directory}','Auxiliary' , 'marker.hmm')
     temp_folder = os.path.join(dir_path , 'tmp')
     seedURL = os.path.join(temp_folder , 'contigs.seed')
     fragResultURL = os.path.join(temp_folder , 'contigs.frag.faa')
