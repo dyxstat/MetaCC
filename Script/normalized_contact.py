@@ -57,7 +57,7 @@ class NormCCMap:
         coeff = self.norm_result
         
         self.seq_map = self.seq_map.tolil()
-        self.seq_map = self.seq_map.astype(np.float)
+        self.seq_map = self.seq_map.astype(np.float64)
         
         mu_vector = []
         for contig_feature in zip(self.site, self.len, self.covcc):
@@ -142,7 +142,7 @@ class NormCCMap_LC:
         coeff = self.norm_result
         
         self.seq_map = self.seq_map.tolil()
-        self.seq_map = self.seq_map.astype(np.float)
+        self.seq_map = self.seq_map.astype(np.float64)
         
         mu_vector = []
         for contig_feature in zip(self.len, self.covcc):
