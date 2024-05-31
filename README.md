@@ -1,5 +1,6 @@
 # MetaCC allows scalable and integrative analyses of both long-read and short-read metagenomic Hi-C data
 
+- [Update](#update) 
 - [Overview](#overview)
 - [System Requirements](#system-requirements)
 - [Installation Guide](#installation-guide)
@@ -10,6 +11,9 @@
 - [Contacts and bug reports](#contacts-and-bug-reports)
 - [Copyright and License Information](#copyright-and-license-information)
 - [Issues](https://github.com/dyxstat/MetaCC/issues)
+
+# Update
+* v1.2.0 (05/2024): Remove the dependence of NormCC on the R scripts
 
 # Overview
 `MetaCC` is an efficient and integrative framework for analyzing both long-read and short-read metaHi-C datasets.
@@ -29,9 +33,9 @@ the binning module in `MetaCC` enables the retrieval of high-quality MAGs and do
 
 ## Software requirements
 ### OS Requirements
-`MetaCC` v1.0.0 is supported and tested in *MacOS* and *Linux* systems.
+`MetaCC` v1.2.0 is supported and tested in *MacOS* and *Linux* systems.
 
-### Python and R Dependencies
+### Python Dependencies
 `MetaCC` mainly depends on the Python scientific stack:
 
 ```
@@ -43,14 +47,8 @@ pandas
 Biopython
 igraph
 leidenalg
+statsmodels
 ```
-and R scientific package:
-
-```
-MASS
-```
-
-
 
 # Installation Guide
 We recommend using [**conda**](https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html) to install `MetaCC`. 
