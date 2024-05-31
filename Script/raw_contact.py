@@ -66,7 +66,6 @@ class Sparse2DAccumulator(object):
 
     def setitem(self, index, value):
         assert len(index) == 2 and index[0] >= 0 and index[1] >= 0, 'invalid index: {}'.format(index)
-        assert isinstance(value, (int, np.int)), 'values must be integers'
         self.mat[index] = value
 
     def getitem(self, index):
