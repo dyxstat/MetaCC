@@ -299,11 +299,8 @@ if __name__ == '__main__':
             logger.info('Begin to test the NormCC normalization module...')
             logger.info('Normalizing raw contacts by NormCC...')
             
-            from rpy2 import robjects
-            r = robjects.r
-            r.source(f'{script_directory}/NormCC/normcc.R')
             contig_file = 'Test/contig_info_test.csv'
-            norm_result = r.normcc(contig_file)
+            norm_result = normcc(contig_file)
             
             ######Construct normalized matrix of Hi-C interaction maps#############
             hzmap = NormCCMap(OUT,
