@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "metacc-metahict"
+version = "0.1.0"
+description = "MetaCC scripts packaged for METAHICT"
+requires-python = ">=3.8"
+
+[tool.setuptools]
+packages = ["MetaCC", "MetaCC.Script"]
+
+[tool.setuptools.package-data]
+MetaCC = ["Auxiliary/*"]
+
